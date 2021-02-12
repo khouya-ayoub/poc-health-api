@@ -1,25 +1,22 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Back end API HEALTH PROJECT ARCHITECTURE",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "HRAMCHI|KHOUYA",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "js-hibernate": "^1.0.14",
     "json": "^9.0.6",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.5",
     "mysql": "^2.18.1",
-    "sinon": "^9.0.1",
-    "supertest": "^4.0.2",
-    "web-push": "^3.4.3"
+    "sinon": "^9.2.4",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "chai": "^4.2.0"

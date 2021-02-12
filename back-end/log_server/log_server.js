@@ -4,16 +4,16 @@
  * */
 const file = require('fs');
 
-const path = "./log_server/push_system_log.txt";
+const path = "./log_server/patient_api.txt";
 
 const writeLog = function (source, message) {
     let line = "" + Date() + " | src: " + source + " | msg: " + message + "\n";
+    console.log(line);
     file.appendFile(path, line, (err) => {
         if (err) {
             throw err;
         }
     });
 };
-
 
 module.exports = writeLog;
