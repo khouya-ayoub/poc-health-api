@@ -5,19 +5,20 @@ const log = require('../log_server/log_server');
 const patientModel = require('../models/patient.model');
 
 // the connexion
-const hibernate = db_conn.hibernate;
+const hibernate = db_conn;
+
+// User MAP
+const userMap = hibernate.tableMap('patients')
+    .columnMap('id', 'id', {isAutoIncrement: true})
+    .columnMap('firstname', 'firstname')
+    .columnMap('lastname', 'lastname')
+    .columnMap('age', 'age')
+    .columnMap('sexe', 'sexe')
+    .columnMap('cardiac', 'cardiac')
+    .columnMap('breath', 'breath');
 
 const database_functions = {
-    selectAllPatient: (request, response, next) => {
-        // User MAP
-        let userMap = hibernate.tableMap('patients')
-            .columnMap('id', 'id')
-            .columnMap('firstname', 'firstname')
-            .columnMap('lastname', 'lastname')
-            .columnMap('age', 'age')
-            .columnMap('sexe', 'sexe')
-            .columnMap('cardiac', 'cardiac')
-            .columnMap('breath', 'breath');
+    selectAllPatients: (request, response, next) => {
         // Selcet ALL
         let query = hibernate.query(userMap).select();
         query.then(res => {
@@ -29,18 +30,10 @@ const database_functions = {
         });
     },
     selectOnePatient: (request, response, next) => {
-        // Map USER
-        let userMap = hibernate.tableMap('patients')
-            .columnMap('id', 'id')
-            .columnMap('firstname', 'firstname')
-            .columnMap('lastname', 'lastname')
-            .columnMap('age', 'age')
-            .columnMap('sexe', 'sexe')
-            .columnMap('cardiac', 'cardiac')
-            .columnMap('breath', 'breath');
+        console.log(request.params);
         // Select One USER
         let query = hibernate.query(userMap)
-            .where(userMap.id.equal(idUser));
+            .where(userMap.id.Equal(request.params.id));
         // When Call ends
         query.then(res => {
             log('selectOnePatient', 'Selection SUCCESS');
@@ -51,15 +44,7 @@ const database_functions = {
         });
     },
     insertOnePatient: (request, response, next) => {
-        // Map USER
-        let userMap = hibernate.tableMap('patients')
-            .columnMap('id', 'id', {isAutoIncrement: true})
-            .columnMap('firstname', 'firstname')
-            .columnMap('lastname', 'lastname')
-            .columnMap('age', 'age')
-            .columnMap('sexe', 'sexe')
-            .columnMap('cardiac', 'cardiac')
-            .columnMap('breath', 'breath');
+        console.log(request.body);
         // Get patient model
         let patient = patientModel.createPatient(
             request.body.firstname,
@@ -69,7 +54,7 @@ const database_functions = {
             request.body.cardiac,
             request.body.breath);
         // Insert USER
-        userMap.insert(patient)
+        userMap.Insert(patient)
             .then(res => {
                 log('insertOnePatient', 'Insertion SUCCESS');
                 return response.status(200).json({ ok: 'OK' });
