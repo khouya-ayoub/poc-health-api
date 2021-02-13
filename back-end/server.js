@@ -8,7 +8,6 @@
 
 const http = require('http');
 const app = require('./app');
-const objetConnecte = require('./objets/object.connecte');
 
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -54,5 +53,4 @@ server.on('listening', () => {
 });
 
 server.listen(port);
-objetConnecte();
 
