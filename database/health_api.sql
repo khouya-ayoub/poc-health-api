@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `cardiac` float DEFAULT NULL,
   `breath` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Data patients';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='Data patients';
 
 -- Listage des données de la table health_api.patients : ~0 rows (environ)
 DELETE FROM `patients`;
