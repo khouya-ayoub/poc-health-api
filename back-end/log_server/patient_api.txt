@@ -43,3 +43,7 @@ Sat Feb 13 2021 00:30:46 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Sel
 Sat Feb 13 2021 00:30:51 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Selection SUCCESS
 Sat Feb 13 2021 00:30:54 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Selection SUCCESS
 Sat Feb 13 2021 00:35:52 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Selection SUCCESS
+Sat Feb 13 2021 00:51:07 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Selection SUCCESS
+Sat Feb 13 2021 00:51:29 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Selection SUCCESS
+Sat Feb 13 2021 00:51:29 GMT+0100 (GMT+01:00) | src: selectOnePatient | msg: Selection SUCCESS
+Sat Feb 13 2021 00:51:43 GMT+0100 (GMT+01:00) | src: selectAllPatient | msg: Selection SUCCESS
