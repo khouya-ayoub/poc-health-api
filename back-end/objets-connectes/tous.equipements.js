@@ -1,6 +1,7 @@
 'use strict'
 const { Worker } = require('worker_threads')
-const hibernate = require('../controllers/connexion');
+const db = require('../controllers/data-base');
+const log = require('../log_server/log_server');
 
 function objet (filepath) {
     return new Promise((resolve, reject) => {
@@ -26,7 +27,14 @@ async function lancerObjet () {
     // chaque seconde on change de la valeur
     setInterval(() => {
         console.log('Ajouter des données dans la base de données !');
-    }, 1000);
+        db.updateValuesInDataBase()
+            .then(res => {
+                log('lancerObjet', 'UPDATES VALUES SUCCESS');
+            })
+            .catch(err => {
+                log('lancerObjet', 'UPDATES VALUES FAILED');
+            });
+    }, 10000);
 }
 
 module.exports = lancerObjet;
