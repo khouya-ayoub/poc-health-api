@@ -34,7 +34,7 @@ async function lancerObjet () {
             .catch(err => {
                 log('lancerObjet', 'UPDATES VALUES FAILED');
             });
-    }, 10000);
+    }, 1000);
 }
 
 module.exports = lancerObjet;
