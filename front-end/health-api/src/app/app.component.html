@@ -3,7 +3,7 @@
   <img
     width="40"
     alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+    src="https://image.flaticon.com/icons/png/512/1453/1453592.png"
   />
   <span>Health API</span>
     <div class="spacer"></div>
@@ -16,10 +16,25 @@
     <span>La liste des patiens</span>
   </div>
 
-  <div class="card-container">
-    <a class="card" target="_blank" rel="noopener" *ngFor="let item of [].constructor(9); let i = index" (click)="getDiagnostic()">
-      <span>Patient {{ i + 1 }}</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
+  <div class="card-container" *ngIf="this.datas.length > 0; else elseBlock">
+    <div *ngFor="let item of this.datas">
+      <h3>{{ item.firstname + ' ' + item.lastname }}</h3>
+      <span>Age : <b>{{ item.age }}</b> | Sexe : <b>{{ item.sexe }}</b></span>
+      <hr>
+      <div style="margin: 20px">
+        <canvas baseChart width="400" height="400"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+    </div>
   </div>
+
+  <ng-template #elseBlock>
+    <span>No data found !</span>
+  </ng-template>
 <router-outlet></router-outlet>
