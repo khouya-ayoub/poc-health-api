@@ -16,19 +16,18 @@
     <span>La liste des patiens</span>
   </div>
 
-  <div class="card-container" *ngIf="this.datas.length > 0; else elseBlock">
+  <div class="card-container" style="margin: 20px;" *ngIf="this.datas.length > 0; else elseBlock">
     <div *ngFor="let item of this.datas">
       <h3>{{ item.firstname + ' ' + item.lastname }}</h3>
       <span>Age : <b>{{ item.age }}</b> | Sexe : <b>{{ item.sexe }}</b></span>
       <hr>
-      <div style="margin: 20px">
+      <div style="margin: 20px" *ngIf="lineChartData[item.id - 1]">
         <canvas baseChart width="400" height="400"
-          [datasets]="lineChartData"
+          [datasets]="lineChartData[item.id - 1]"
           [labels]="lineChartLabels"
           [colors]="lineChartColors"
           [legend]="lineChartLegend"
-          [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
+          [chartType]="lineChartType">
         </canvas>
       </div>
     </div>

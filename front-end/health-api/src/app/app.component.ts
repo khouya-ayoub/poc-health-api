@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ChartsModule, Color, Label } from 'ng2-charts';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 @Component({
@@ -12,20 +12,9 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 export class AppComponent implements OnInit {
 
   datas: any[] = [];
-  public lineChartData: ChartDataSets[] = [
-    {
-      id: 1,
-      data: [10, 20, 60, 80],
-      label : 'Cardiac'
-    },
-    {
-      id: 2,
-      data: [80, 10, 30],
-      label : 'Breath'
-    }
-  ];
+  lineChartData = [];
 
-  lineChartLabels: Label[] = ['Janvier', 'Février', 'Mars', 'April', 'Mai', 'Juin', 'Juillet'];
+  lineChartLabels: Label[] = ['Janvier', 'Février', 'Mars', 'April', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
   public lineChartColors: Color[] = [
     {
@@ -35,7 +24,8 @@ export class AppComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
-  public lineChartPlugins = [];
+
+
 
   constructor(
     public http: HttpClient,
@@ -43,6 +33,7 @@ export class AppComponent implements OnInit {
   ){}
   ngOnInit(): void {
     this.getDiagnostic();
+    this.asyncObservable().subscribe();
   }
 
   async getDiagnostic() {
@@ -51,10 +42,22 @@ export class AppComponent implements OnInit {
     .pipe(
         tap((data: any[]) => {
           this.datas = data;
-          const cardiac = [];
-          const breath = [];
-
-
+          this.datas.forEach((element: any) => {
+            this.lineChartData.push(
+              [
+                {
+                  id: element.id,
+                  data: [element.cardiac],
+                  label: 'Cardiac'
+                },
+                {
+                  id: element.id,
+                  data: [element.breath],
+                  label: 'Breath'
+                }
+              ],
+            )
+          })
         }),
         catchError(error => {
           console.log(error);
@@ -63,14 +66,37 @@ export class AppComponent implements OnInit {
     ).subscribe();
   }
 
-  getDatas(id: number) {
-    const lineChartData: ChartDataSets[] = [];
-    lineChartData.push({
-      data: this.lineChartData.filter((item: any) => item.id === id)[0].data,
-      label: 'Cardiac'
-    });
+  getDatas() {
+    setTimeout(() => {
+      return this.lineChartData;
+    }, 1000);
+  }
 
-    return lineChartData;
+  asyncObservable() {
+    return new Observable(observer => {
+      setInterval(() => {
+        const local = 'http://localhost:3000';
+    this.http.get(local + '/api-health/get-all-patients')
+    .pipe(
+      tap((data: any[]) => {
+        let patient: any;
+        data.forEach((element: any) => {
+          if(this.lineChartData[element.id - 1]) {
+          patient = this.lineChartData[element.id-1];
+          this.lineChartData[element.id-1][0].data.push(element.cardiac);
+          this.lineChartData[element.id-1][1].data.push(element.breath);
+          }
+        })
+      })
+    ).subscribe();
+
+    if(this.lineChartData[0][0].data.length >= 12) {
+      this.lineChartData = [];
+      this.getDiagnostic();
+    }
+
+      }, 2000)
+    })
   }
 
 }

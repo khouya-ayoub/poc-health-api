@@ -67,6 +67,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 16px;
+    grid-auto-rows: minmax(10px, auto);
   }
 
   .card {
