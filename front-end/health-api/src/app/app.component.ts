@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
 
     if(this.lineChartData[0][0].data.length >= 20) {
       this.lineChartLabels.push((this.lineChartLabels.length + 1).toString())
-      if(this.lineChartData[0][0].data.length >= 100) {
+      if(this.lineChartData[0][0].data.length >= 30) {
         this.lineChartData = [];
         this.lineChartLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
         this.getDiagnostic();
