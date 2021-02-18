@@ -3,7 +3,8 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ChartsModule, Color, Label } from 'ng2-charts';
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   datas: any[] = [];
   lineChartData = [];
 
-  lineChartLabels: Label[] = ['Janvier', 'Février', 'Mars', 'April', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+  lineChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 
   public lineChartColors: Color[] = [
     {
@@ -90,12 +91,16 @@ export class AppComponent implements OnInit {
       })
     ).subscribe();
 
-    if(this.lineChartData[0][0].data.length >= 12) {
-      this.lineChartData = [];
-      this.getDiagnostic();
+    if(this.lineChartData[0][0].data.length >= 20) {
+      this.lineChartLabels.push((this.lineChartLabels.length + 1).toString())
+      if(this.lineChartData[0][0].data.length >= 100) {
+        this.lineChartData = [];
+        this.lineChartLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+        this.getDiagnostic();
+      }
     }
 
-      }, 2000)
+      }, 700)
     })
   }
 
